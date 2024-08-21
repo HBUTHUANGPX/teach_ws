@@ -1,0 +1,2 @@
+self_msg_1 wsnd
+self_msg_3 wsned
