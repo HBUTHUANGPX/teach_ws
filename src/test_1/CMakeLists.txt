@@ -162,6 +162,7 @@ target_link_libraries(sub_node ${catkin_LIBRARIES})
 ## in contrast to setup.py, you can choose the destination
 catkin_install_python(PROGRAMS
   scripts/pub.py
+  scripts/test_motor_control.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

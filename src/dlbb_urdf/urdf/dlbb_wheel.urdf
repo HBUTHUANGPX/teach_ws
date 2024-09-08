@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com)
+Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+For more information, please see http://wiki.ros.org/sw_urdf_exporter
+-->
+<robot name="dlbb_urdf">
+	<link name="wheel_trunk">
+		<inertial>
+			<origin xyz="3.82E-06 -0.00010936 0.01801333" rpy="0 0 0" />
+			<mass value="0.5482373" />
+			<inertia ixx="0.00038308" ixy="2E-08" ixz="-1.1E-07" iyy="0.00038463" iyz="-7.2E-07" izz="0.00050223" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://dlbb_urdf/meshes/wheel_trunk.STL" />
+			</geometry>
+			<material name="">
+				<color rgba="1 1 1 1" />
+			</material>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://dlbb_urdf/meshes/wheel_trunk.STL" />
+			</geometry>
+		</collision>
+	</link>
+	<link name="hang_link">
+		<inertial>
+			<origin xyz="-2.418E-05 0.01858581 -0.0696739" rpy="0 0 0" />
+			<mass value="0.56375773" />
+			<inertia ixx="0.00103776" ixy="-1E-08" ixz="1.24E-06" iyy="0.00084525" iyz="0.00016779" izz="0.0004064" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://dlbb_urdf/meshes/hang_link.STL" />
+			</geometry>
+			<material name="">
+				<color rgba="0.89804 0.91765 0.92941 1" />
+			</material>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://dlbb_urdf/meshes/hang_link.STL" />
+			</geometry>
+		</collision>
+	</link>
+	<joint name="hang_joint" type="continuous">
+		<origin xyz="0 0 0.087" rpy="0 0 0" />
+		<parent link="wheel_trunk" />
+		<child link="hang_link" />
+		<axis xyz="0 0 1" />
+		<limit effort="1.2" velocity="14" />
+	</joint>
+	<link name="dong_link">
+		<inertial>
+			<origin xyz="0 -0.00130014 0" rpy="0 0 0" />
+			<mass value="0.30920252" />
+			<inertia ixx="0.00036765" ixy="0" ixz="0" iyy="0.00066439" iyz="0" izz="0.00036765" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://dlbb_urdf/meshes/dong_link.STL" />
+			</geometry>
+			<material name="">
+				<color rgba="1 1 1 1" />
+			</material>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://dlbb_urdf/meshes/dong_link.STL" />
+			</geometry>
+		</collision>
+	</link>
+	<joint name="dong_joint" type="continuous">
+		<origin xyz="0 0 -0.087" rpy="0 0 0" />
+		<parent link="hang_link" />
+		<child link="dong_link" />
+		<axis xyz="0 1 0" />
+		<limit effort="3" velocity="50" />
+	</joint>
+</robot>

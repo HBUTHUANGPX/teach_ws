@@ -1,0 +1,32 @@
+dlbb:
+  # Publish all joint states -----------------------------------
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 1000
+
+  # Effort Controllers ---------------------------------------
+  f_r_h_j_e_controller:
+    type: effort_controllers/JointEffortController
+    joint: front_right_hang_joint
+  f_l_h_j_e_controller:
+    type: effort_controllers/JointEffortController
+    joint: front_left_hang_joint
+  r_r_h_j_e_controller:
+    type: effort_controllers/JointEffortController
+    joint: rear_right_hang_joint
+  r_l_h_j_e_controller:
+    type: effort_controllers/JointEffortController
+    joint: rear_left_hang_joint
+
+  f_r_d_j_e_controller:
+    type: effort_controllers/JointEffortController
+    joint: front_right_dong_joint
+  f_l_d_j_e_controller:
+    type: effort_controllers/JointEffortController
+    joint: front_left_dong_joint
+  r_r_d_j_e_controller:
+    type: effort_controllers/JointEffortController
+    joint: rear_right_dong_joint
+  r_l_d_j_e_controller:
+    type: effort_controllers/JointEffortController
+    joint: rear_left_dong_joint

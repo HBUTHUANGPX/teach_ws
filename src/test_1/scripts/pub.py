@@ -28,3 +28,4 @@ if __name__ == "__main__":
         msg2.wsnd.height +=0.001
         msg.height += 0.001
         rate.sleep()
+        # FIFO first in fisrt out DMA CAN

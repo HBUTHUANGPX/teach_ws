@@ -1,0 +1,27 @@
+<launch>
+	<include file="$(find gazebo_ros)/launch/empty_world.launch" />
+
+	<param name="robot_description" 
+         command="$(find xacro)/xacro $(find dlbb_urdf)/xacro/dlbb.urdf.xacro" />
+
+  <node name="spawn_model" pkg="gazebo_ros" type="spawn_model" 
+        args="-param robot_description 
+              -urdf 
+              -model dlbb" output="screen" />
+
+  <rosparam file="$(find dlbb_urdf)/config/motor_controller.yaml" command="load"/>
+
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" ns="/dlbb" 
+    args="f_r_h_j_e_controller f_r_d_j_e_controller 
+          f_l_h_j_e_controller f_l_d_j_e_controller 
+          r_r_h_j_e_controller r_r_d_j_e_controller 
+          r_l_h_j_e_controller r_l_d_j_e_controller 
+          joint_state_controller"/>
+
+	
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher"
+        respawn="false" output="screen">
+        <remap from="/joint_states" to="/dlbb/joint_states"/>
+  </node>
+</launch>

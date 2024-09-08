@@ -2,7 +2,7 @@
 #include "test_1/self_msg_1.h"
 #include "test_1/self_msg_2.h"
 #include <unistd.h> // 包含usleep函数的头文件
-
+#include <std_msgs/Bool.h>
 void doMsg(const test_1::self_msg_1::ConstPtr& msg)
 {
     ROS_INFO("message receive  ,%f",msg->height);
@@ -26,4 +26,5 @@ int main(int argc, char **argv)
     // ros::spin();
     return 0;
 }
-// 
+// Lidar 100Hz 9.9ms
+// imu 200Hz 0.1ms

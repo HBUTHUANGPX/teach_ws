@@ -1,0 +1,140 @@
+<robot name="wheel_group" xmlns:xacro="http://wiki.ros.org/xacro">
+	<xacro:macro name="wheel_func" params="fb rl">
+		<xacro:property name="wheel_name" value="${fb}_${rl}" />
+		<xacro:if value="${fb == 'front'}">
+			<xacro:property name="x" value="0.171"/>
+		</xacro:if>
+		<xacro:if value="${fb == 'rear'}">
+			<xacro:property name="x" value="-0.171"/>
+		</xacro:if>
+		<xacro:if value="${rl == 'right'}">
+			<xacro:property name="y" value="-0.171"/>
+		</xacro:if>
+		<xacro:if value="${rl == 'left'}">
+			<xacro:property name="y" value="0.171"/>
+		</xacro:if>
+
+		<link name="${wheel_name}_wheel_trunk">
+			<inertial>
+				<origin xyz="3.82E-06 -0.00010936 0.01801333" rpy="0 0 0" />
+				<mass value="0.5482373" />
+				<inertia ixx="0.00038308" ixy="2E-08" ixz="-1.1E-07" iyy="0.00038463" iyz="-7.2E-07" izz="0.00050223" />
+			</inertial>
+			<visual>
+				<origin xyz="0 0 0" rpy="0 0 0" />
+				<geometry>
+					<mesh filename="package://dlbb_urdf/meshes/wheel_trunk.STL" />
+				</geometry>
+				<material name="">
+					<color rgba="1 1 1 1" />
+				</material>
+			</visual>
+			<collision>
+				<origin xyz="0 0 0" rpy="0 0 0" />
+				<geometry>
+					<mesh filename="package://dlbb_urdf/meshes/wheel_trunk.STL" />
+				</geometry>
+			</collision>
+		</link>
+		<joint name="${wheel_name}_wheel_trunk_joint" type="fixed">
+			<origin xyz="${x} ${y} 0.178" rpy="0 0 0" />
+			<parent link="base_trunk" />
+			<child link="${wheel_name}_wheel_trunk" />
+			<axis xyz="0 0 1" />
+			<limit effort="1.2" velocity="14" />
+		</joint>
+
+		<link name="${wheel_name}_hang_link">
+			<inertial>
+				<origin xyz="-2.418E-05 0.01858581 -0.0696739" rpy="0 0 0" />
+				<mass value="0.56375773" />
+				<inertia ixx="0.00103776" ixy="-1E-08" ixz="1.24E-06" iyy="0.00084525" iyz="0.00016779" izz="0.0004064" />
+			</inertial>
+			<visual>
+				<origin xyz="0 0 0" rpy="0 0 0" />
+				<geometry>
+					<mesh filename="package://dlbb_urdf/meshes/hang_link.STL" />
+				</geometry>
+				<material name="">
+					<color rgba="0.89804 0.91765 0.92941 1" />
+				</material>
+			</visual>
+			<collision>
+				<origin xyz="0 0 0" rpy="0 0 0" />
+				<geometry>
+					<mesh filename="package://dlbb_urdf/meshes/hang_link.STL" />
+				</geometry>
+			</collision>
+		</link>
+		<joint name="${wheel_name}_hang_joint" type="continuous">
+			<origin xyz="${x} ${y} 0.264" rpy="0 0 0" />
+			<parent link="base_trunk" />
+			<child link="${wheel_name}_hang_link" />
+			<axis xyz="0 0 1" />
+			<limit effort="1.2" velocity="14" />
+		</joint>
+
+		<link name="${wheel_name}_dong_link">
+			<inertial>
+				<origin xyz="0 -0.00130014 0" rpy="0 0 0" />
+				<mass value="0.30920252" />
+				<inertia ixx="0.00036765" ixy="0" ixz="0" iyy="0.00066439" iyz="0" izz="0.00036765" />
+			</inertial>
+			<visual>
+				<origin xyz="0 0 0" rpy="0 0 0" />
+				<geometry>
+					<mesh filename="package://dlbb_urdf/meshes/dong_link.STL" />
+				</geometry>
+				<material name="">
+					<color rgba="1 1 1 1" />
+				</material>
+			</visual>
+			<collision>
+				<!-- <origin xyz="0 0 0" rpy="1.570796 0 0" /> -->
+				<origin xyz="0 0 0" rpy="0 0 0" />
+				<geometry>
+          			<!-- <cylinder radius="0.06" length="0.03" /> -->
+					<mesh filename="package://dlbb_urdf/meshes/dong_link.STL" />
+				</geometry>				
+			</collision>
+		</link>
+		<joint name="${wheel_name}_dong_joint" type="continuous">
+			<origin xyz="0 0 -0.087" rpy="0 0 0" />
+			<parent link="${wheel_name}_hang_link" />
+			<child link="${wheel_name}_dong_link" />
+			<axis xyz="0 1 0" />
+			<limit effort="3" velocity="50" />
+		</joint>
+
+
+		<transmission name="${wheel_name}_hang_tran">
+			<type>transmission_interface/SimpleTransmission</type>
+			<joint name="${wheel_name}_hang_joint">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			</joint>
+			<actuator name="${wheel_name}_hang_motor">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+
+		<transmission name="${wheel_name}_dong_tran">
+			<type>transmission_interface/SimpleTransmission</type>
+			<joint name="${wheel_name}_dong_joint">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			</joint>
+			<actuator name="${wheel_name}_dong_motor">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+
+		<gazebo reference="${wheel_name}_dong_link">
+			<mu1>1.0</mu1>
+			<mu2>1.0</mu2>
+			<kp  value="100000.0"/>
+			<kd  value="0.10"/>
+			<self_collide>0</self_collide>
+		</gazebo>
+	</xacro:macro>
+</robot>

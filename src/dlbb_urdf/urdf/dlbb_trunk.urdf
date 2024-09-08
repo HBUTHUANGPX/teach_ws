@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot name="dlbb_trunk">
+    <link name="base_link">
+    </link>
+    <joint name="base_link_joint" type="fixed">
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <parent link="base_link"/>
+        <child link="base_trunk"/>
+        <axis xyz="0.0 0.0 0.0"/>
+        <limit lower="0.0" upper="0.0" effort="0.0" velocity="0.0"/>
+    </joint>
+	<link name="base_trunk">
+		<inertial>
+			<origin xyz="-0.00274216 0.00080451 0.13878403" rpy="0 0 0" />
+			<mass value="6.10795662" />
+			<inertia ixx="0.12205506" ixy="0.0004266" ixz="-0.00175897" iyy="0.12690868" iyz="0.0008672" izz="0.22018054" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://dlbb_urdf/meshes/base_link.STL" />
+			</geometry>
+			<material name="">
+				<color rgba="1 1 1 1" />
+			</material>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://dlbb_urdf/meshes/base_link.STL" />
+			</geometry>
+		</collision>
+	</link>
+    
+</robot>

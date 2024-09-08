@@ -1,0 +1,4 @@
+<launch>
+  <rosparam file="$(find dlbb_urdf)/config/pid.yaml" command="load"/>
+	<node name="test_motor_control" pkg="test_1" type="test_motor_control.py" output="screen" />
+</launch>
